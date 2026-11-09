@@ -20,3 +20,5 @@ test/gate_level_netlist.v
 /demo_*.hex
 /demo_*.csv
 /demo_*.lst
+
+/multiply_sim
