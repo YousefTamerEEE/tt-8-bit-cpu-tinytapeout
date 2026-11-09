@@ -22,3 +22,5 @@ test/gate_level_netlist.v
 /demo_*.lst
 
 /multiply_sim
+
+/fibonacci_sim
