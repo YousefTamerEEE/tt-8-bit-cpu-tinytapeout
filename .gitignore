@@ -11,3 +11,12 @@ test/sim_build
 test/__pycache__/
 test/results.xml
 test/gate_level_netlist.v
+
+# Generated simulation files
+/tt/
+/cpu_sim
+/counter_sim
+/*.vcd
+/demo_*.hex
+/demo_*.csv
+/demo_*.lst
