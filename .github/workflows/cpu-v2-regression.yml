@@ -1,0 +1,53 @@
+name: CPU V2 Automated Regression
+
+on:
+  push:
+    branches: [cpu-v2]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out project
+        uses: actions/checkout@v4
+
+      - name: Install Icarus Verilog
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y iverilog
+
+      - name: Run 14 assembler unit tests
+        run: python3 -m unittest -v test_assembler.py
+
+      - name: Verify Python CPU against Verilog RTL
+        run: python3 test_differential.py
+
+      - name: Comprehensive CPU instruction verification
+        run: python3 test_instruction_suite.py
+
+      - name: Assemble demonstration programs
+        run: |
+          python3 assembler.py demo_counter.asm
+          python3 assembler.py demo_multiply.asm
+          python3 assembler.py demo_fibonacci.asm
+
+      - name: Run counter CPU simulation
+        run: |
+          iverilog -g2012 -s test_counter -o counter_sim test_counter.v src/*.v
+          vvp counter_sim | tee counter.log
+          grep -q 'PASS: actual CPU executed' counter.log
+
+      - name: Run multiplication CPU simulation
+        run: |
+          iverilog -g2012 -s test_multiply -o multiply_sim test_multiply.v src/*.v
+          vvp multiply_sim | tee multiply.log
+          grep -q 'PASS: CPU computed 3 x 4 = 12' multiply.log
+
+      - name: Run Fibonacci CPU simulation
+        run: |
+          iverilog -g2012 -s test_fibonacci -o fibonacci_sim test_fibonacci.v src/*.v
+          vvp fibonacci_sim | tee fibonacci.log
+          grep -q 'PASS: CPU generated Fibonacci' fibonacci.log
