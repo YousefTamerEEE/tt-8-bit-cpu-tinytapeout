@@ -22,7 +22,7 @@
 | Control flow | Unconditional `JMP` and zero-conditional `JZ` |
 | Chip interface | Two-byte programming over Tiny Tapeout input pins; accumulator on eight output pins |
 | Silicon target | GF180MCU, Tiny Tapeout 1×2 tile |
-| Physical-design configuration | 45 ns clock-period target; 60% placement-density target |
+| Physical-design configuration | 60 ns clock-period target; 60% placement-density target |
 | Verification | 14 Python assembler unit tests + counter, multiplication and Fibonacci RTL simulations |
 
 ## CPU architecture
@@ -178,7 +178,7 @@ The [CPU V2 Automated Regression](https://github.com/YousefTamerEEE/tt-8-bit-cpu
 The CPU targets the **GF180MCU 180 nm** process through the Tiny Tapeout/LibreLane digital flow. The original **1×1 tile** implementation encountered placement constraints. Moving to a **1×2 tile**, and refining placement density and antenna-repair settings, enabled the verified physical-design workflow to complete. This is an intentional area-versus-routability engineering trade-off.
 
 - **Physical implementation:** successful GDS workflow, followed by successful Tiny Tapeout precheck and gate-level test jobs on the verified baseline design.
-- **Configuration:** `src/config.json` records a **45 ns** layout clock-period target and **60%** placement-density target; `info.yaml` specifies a **1×2** tile.
+- **Configuration:** `src/config.json` records a **60 ns** layout clock-period target and **60%** placement-density target; `info.yaml` specifies a **1×2** tile.
 - **Reproducibility:** [`cpu-v1-stable`](https://github.com/YousefTamerEEE/tt-8-bit-cpu-tinytapeout/tree/cpu-v1-stable) preserves the previously passing RTL design, while [`cpu-v2`](https://github.com/YousefTamerEEE/tt-8-bit-cpu-tinytapeout/tree/cpu-v2) adds the assembler, demonstration programs and tests.
 - **Fabrication status:** layout and verification are **not** equivalent to manufacturing. The design has not yet been fabricated or physically tested on silicon.
 
