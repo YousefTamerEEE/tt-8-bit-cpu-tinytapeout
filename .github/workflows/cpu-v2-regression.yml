@@ -25,6 +25,9 @@ jobs:
       - name: Verify Python CPU against Verilog RTL
         run: python3 test_differential.py
 
+      - name: Comprehensive CPU instruction verification
+        run: python3 test_instruction_suite.py
+
       - name: Assemble demonstration programs
         run: |
           python3 assembler.py demo_counter.asm
